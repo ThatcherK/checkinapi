@@ -14,5 +14,5 @@ class Visitor(models.Model):
 
 class Register(models.Model):
     visitor = models.ForeignKey(Visitor,on_delete=models.CASCADE)
-    temperature = models.IntegerField()
+    temperature = models.FloatField()
     date = models.DateTimeField(auto_now=True)
