@@ -7,7 +7,6 @@ class VisitorSerializer(ModelSerializer):
         fields=['name', 'company', 'identification_number', 'telephone_number', 'date', 'id']
 
 class RegisterSerializer(ModelSerializer):
-    # visitor = VisitorSerializer(read_only=True)
     class Meta:
         model=Register
-        fields=['visitor', 'temperature', 'date']
+        fields=[ 'temperature', 'date']

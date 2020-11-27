@@ -40,6 +40,7 @@ class RegisterVisitor(ListCreateAPIView):
             'visitor': visitor,
             'temperature': temperature
         }
+        
         serializer = RegisterSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -50,4 +51,18 @@ class RegisterVisitor(ListCreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class RepeatVisitorView(RetrieveUpdateAPIView):
-    pass
+    serializer_class = RegisterSerializer
+    def patch(self,request,visitor_id):
+        post_data = request.data
+        temperature = post_data.get('temperature')
+        repeat_visitor = Register.objects.get(visitor=visitor_id)
+        repeat_visitor.temperature = temperature
+
+        serializer = RegisterSerializer(repeat_visitor,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            data = {
+                'registered_visitor': serializer.data
+            }
+            return Response(data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
