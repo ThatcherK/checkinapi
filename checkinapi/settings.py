@@ -63,7 +63,8 @@ CORS_ALLOWED_ORIGINS = [
 REST_FRAMEWORK={
     'DEFAULT AUTHENTICATION_CLASSES':(
         'authentication.authbackend.JWTAuthentication',
-    )
+    ),
+    'DATETIME_FORMAT': "%m/%d/%Y %H:%M:%S",
 }
 
 ROOT_URLCONF = 'checkinapi.urls'
