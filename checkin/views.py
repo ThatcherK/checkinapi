@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.generics import  ListCreateAPIView, RetrieveUpdateAPIView
 from .serializers import RegisterSerializer, VisitorSerializer
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, filters
 from django.conf import settings
 from .models import Register, Visitor
 from rest_framework.permissions import IsAuthenticated
@@ -35,7 +35,9 @@ class AddVisitor(ListCreateAPIView):
 class RegisterVisitor(ListCreateAPIView):
     queryset = Register.objects.all()
     serializer_class = RegisterSerializer
-        
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['date']
+    ordering = ['-date']  
     def post(self, request):
         post_data = request.data
         visitor = post_data.get('visitor')
