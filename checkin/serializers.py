@@ -9,4 +9,4 @@ class VisitorSerializer(ModelSerializer):
 class RegisterSerializer(ModelSerializer):
     class Meta:
         model=Register
-        fields=[ 'temperature', 'date']
+        fields=[ 'visitor','temperature', 'date']
